@@ -8,6 +8,23 @@ import numpy as np
 import pandas as pd
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 urls = (
   '/', 'index'
 )
@@ -18,19 +35,19 @@ app = web.application(urls, globals())
 
 myform = form.Form(
   form.Textbox('departureCity', form.notnull, description="Departure city", class_="textEntry",\
-  value="3 letters ICAO code", id="cajatext", post="  City where you want to start your travel. It should has an airport", size="15"),
+  value="3 letters ICAO code", id="cajatext", post="  City where you want to start your travel. It should has an airport.", size="15"),
   
   form.Textbox('firstPossibleDepartureDate', form.notnull, description="First possible departure date", class_="textEntry",\
-  value="DD/MM/YYYY", id="cajatext", post="  First  day on which you can start your trip ", size="15"),
+  value="YYYY-MM-DD", id="cajatext", post="  First  day on which you can start your trip.", size="15"),
   
   form.Textbox('lasttPossibleDepartureDate', form.notnull, description="Last possible departure date", class_="textEntry",\
-  value="DD/MM/YYYY", id="cajatext", post="  Last day on which you can start your trip: The more flexible you are, the better suggestions we can give you", size="15"),
+  value="YYYY-MM-DD", id="cajatext", post="  Last day on which you can start your trip: The more flexible you are, the better suggestions we can give you!!", size="15"),
 
-  form.Textbox('duration', form.notnull, description="Duration", class_="textEntry",\
+  form.Textbox('duration', form.notnull, description="Trip duration", class_="textEntry",\
   value="number of days", id="cajatext", post="  How many days will your trip last?", size="15"),
 
-  form.Textbox('numberOfResults', form.notnull, description="Number of results", class_="textEntry",\
-  value="number of results", id="cajatext", post="  How many suggestions do you want to obtain?", size="15"),
+  form.Textbox('currency', form.notnull, description="Your local currency", class_="textEntry",\
+  value="EUR", id="cajatext", post="  EUR/GBP/USD...Which is the currency in the departure airport?", size="15"),
   
 #  form.Textbox("nombre"),
 #  form.Textbox("id1",
@@ -48,7 +65,7 @@ myform = form.Form(
   )
 
 
-def Respuesta(ciudadSalida,firstPossibleDepartureDate,lasttPossibleDepartureDate,duration,numberOfResults):
+def Respuesta(ciudadSalida,firstPossibleDepartureDate,lasttPossibleDepartureDate,duration,currency):
     #return ("Gran exito! Nombre: %s, ID: %s" % (nombreIntroducido, (valor1+valor2)))
 
     #https://stackoverflow.com/questions/19622407/2d-numpy-array-to-html-table?utm_medium=organic&utm_source=google_rich_qa&utm_campaign=google_rich_qa
@@ -85,7 +102,7 @@ class index:
      if not form.validates():
        return plantilla.formulario_2(form)
      else:
-       return Respuesta(form['departureCity'].value,form['firstPossibleDepartureDate'].value,form['lasttPossibleDepartureDate'].value,form['duration'].value,form['numberOfResults'].value)
+       return Respuesta(form['departureCity'].value,form['firstPossibleDepartureDate'].value,form['lasttPossibleDepartureDate'].value,form['duration'].value,form['currency'].value)
 
 if __name__ == "__main__":
     app.run()
